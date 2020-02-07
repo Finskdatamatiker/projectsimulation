@@ -19,7 +19,7 @@ public class State {
     public void receiveWork(double procent){
         workReceived = procent * handler.getWorkLeft();
     }
-
+    //disse bliver lidt det samme - skal kigges på igen
      public void sendWorkForward(double procent){
         workSent = procent * handler.getWorkLeft();
     }
