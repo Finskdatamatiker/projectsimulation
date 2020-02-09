@@ -140,7 +140,7 @@ public class Handler {
 
     /**
      * metoden looper iterationerne, som henter
-     * toString fra iteration, som henter toString fra unit.
+     * toString fra iteration, som igen henter toString fra unit.
      * @return
      */
 
