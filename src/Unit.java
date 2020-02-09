@@ -3,7 +3,7 @@ import java.text.DecimalFormatSymbols;
 
 public class Unit {
     /**
-     * Klassen repræsenterer de forskellige workUnits i hver iteration
+     * Klassen repræsenterer de forskellige workUnits i hver iteration.
      */
 
     /**

@@ -2,7 +2,7 @@ public enum State {
     /**
      * De forskellige states som Enum.
      * Jeg har lavet min egen konstruktør for at give
-     * dem stateNr.
+     * enums stateNr.
      */
 
     STAR(0),

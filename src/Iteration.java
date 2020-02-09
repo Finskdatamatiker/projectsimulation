@@ -44,7 +44,7 @@ public class Iteration {
     /**
      * Her bruger jeg min egen Comparator-klasse for at kunne sammenligne Units
      * og dermed for at kunne sortere dem. Jeg vil have dem printet i units i den
-     * rækkefælge, de forekommer i projektet.
+     * rækkefølge, de forekommer i projektet.
      * Jeg looper units en ad gangen til toString.
      * @return
      */

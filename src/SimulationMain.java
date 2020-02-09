@@ -2,7 +2,7 @@ public class SimulationMain {
     public static void main(String[] args) {
 
         Handler handler = new Handler();
-        int antalletAfIterationer = 25;
+        int antalletAfIterationer = 27;
 
         handler.makeFirstIteration();
         for(int i = 0; i < antalletAfIterationer; i++) {
