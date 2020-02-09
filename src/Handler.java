@@ -4,7 +4,7 @@ public class Handler {
 
     /**
      * Klassen har ansvar for at lave iterationerne.
-     * Den har en arrayliste med iterationerne som attribut.
+     * Den har en arrayliste med iterationerne som sit felt.
      */
     private ArrayList<Iteration> allIterations = new ArrayList<>();
 

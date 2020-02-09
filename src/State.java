@@ -1,6 +1,6 @@
 public enum State {
     /**
-     * De forskellige states, som Enum.
+     * De forskellige states som Enum.
      * Jeg har lavet min egen konstruktør for at give
      * dem stateNr.
      */

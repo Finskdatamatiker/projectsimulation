@@ -8,7 +8,7 @@ public class Unit {
 
     /**
      * value = bestemt mængde arbejde
-     * round = hver state har bestemt antal iterationer, så round fortæller, om unit
+     * round = hver state har et bestemt antal iterationer, så round fortæller, om unit
      * skal forblive i den samme state eller gå videre
      * stateNr = state, som unit tilhører i denne iteration
      */
@@ -46,7 +46,7 @@ public class Unit {
      */
     @Override
     public String toString() {
-        DecimalFormat df = new DecimalFormat("####0.00000000000");
+        DecimalFormat df = new DecimalFormat("####0.0000000000");
         DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
         dfs.setDecimalSeparator('.');
         df.setDecimalFormatSymbols(dfs);

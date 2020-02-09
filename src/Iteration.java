@@ -28,7 +28,7 @@ public class Iteration {
     }
 
     /**
-     * Metoden laver den første workUnit som udgansgpunkt for systemet.
+     * Metoden laver den første workUnit som udgangspunkt for systemet.
      * Vi starter i state 0 med værdien 1.0, dvs. hele projektet.
      * Jeg tilføjer denne unit til arraylisten af units.
      */
