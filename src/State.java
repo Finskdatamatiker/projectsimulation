@@ -1,39 +1,23 @@
-public class State {
-
-    private String name;
-    private int numberIterations;
-    private double workReceived;
-    private double workSent;
-    private Handler handler;
-
-    public State(){}
-
-    public State(String name){
-        this.name = name;
-    }
-
+public enum State {
     /**
-     *
-     * @param procent
+     * De forskellige states, som Enum.
+     * Jeg har lavet min egen konstruktør for at give
+     * dem stateNr.
      */
-    public void receiveWork(double procent){
-        workReceived = procent * handler.getWorkLeft();
-    }
-    //disse bliver lidt det samme - skal kigges på igen
-     public void sendWorkForward(double procent){
-        workSent = procent * handler.getWorkLeft();
-    }
 
-    public void sendWorkBack(double procent){
-        
-    }
+    STAR(0),
+    COMM(1),
+    PLAN(2),
+    MODE(3),
+    CONS(4),
+    DEPL(5);
 
-    public void updateWorkDone(){
-
+    private final int stateNr;
+    private State(int stateNr) {
+        this.stateNr = stateNr;
     }
 
-    public void updateWorkLeft(){
-
-    }
+    public int getStateNr(){
+        return stateNr;}
 
 }
