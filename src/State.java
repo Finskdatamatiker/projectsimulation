@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public enum State {
     /**
      * De forskellige states som Enum.
@@ -13,11 +15,22 @@ public enum State {
     DEPL(5);
 
     private final int stateNr;
-    private State(int stateNr) {
+    State(int stateNr) {
         this.stateNr = stateNr;
+    }
+
+    public static State givNyState(State state, int forskel) {
+        for (State s : values()) {
+            if (s.getStateNr() == (state.getStateNr() + forskel)) {
+                return s;
+            }
+        }
+        return null;
     }
 
     public int getStateNr(){
         return stateNr;}
 
 }
+
+

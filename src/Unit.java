@@ -7,14 +7,15 @@ public class Unit {
      */
 
     /**
-     * value = bestemt mængde arbejde
+     * value = bestemt mængde arbejde. dvs. procenter af det samlede projekt, fx. 0.0004 af det samlede projekt
      * round = hver state har et bestemt antal iterationer, så round fortæller, om unit
      * skal forblive i den samme state eller gå videre
      * stateNr = state, som unit tilhører i denne iteration
      */
     private double value;
     private int round;
-    private int stateNr;
+    private State state;
+    //private int stateNr;
 
     public Unit(){}
 
@@ -30,11 +31,18 @@ public class Unit {
     public void setRound(int round) {
         this.round = round;
     }
-    public int getStateNr() {
+    /*public int getStateNr() {
         return stateNr;
     }
     public void setStateNr(int stateNr) {
         this.stateNr = stateNr;
+    }*/
+
+    public State getState() {
+        return state;
+    }
+    public void setState(State state) {
+        this.state = state;
     }
 
     /**
@@ -50,7 +58,8 @@ public class Unit {
         DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
         dfs.setDecimalSeparator('.');
         df.setDecimalFormatSymbols(dfs);
-        String stateName ="";
+
+        /*String stateName ="";
         switch (stateNr){
             case 0: stateName = State.STAR.toString();
             break;
@@ -64,8 +73,8 @@ public class Unit {
             break;
             case 5: stateName = State.DEPL.toString();
             break;
-        }
-        return stateName +
+        }*/
+        return /*stateName +*/state +
                 " - value: " + df.format(value) +
                 ", round: " + round;
     }

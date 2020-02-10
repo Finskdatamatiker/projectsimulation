@@ -6,20 +6,21 @@ public class Handler {
      * Klassen har ansvar for at lave iterationerne.
      * Den har en arrayliste med iterationerne som felt.
      */
+    private Iteration iteration = new Iteration(0);
     private ArrayList<Iteration> allIterations = new ArrayList<>();
 
-    public Handler() {
-    }
+    public Handler() {}
 
     public ArrayList<Iteration> getAllIterations() { return allIterations; }
     public void setAllIterations(ArrayList<Iteration> allIterations) { this.allIterations = allIterations; }
+    public Iteration getIteration() { return iteration; }
+    public void setIteration(Iteration iteration) { this.iteration = iteration; }
 
     /**
      * Metoden laver den første iteration. Iteration indeholder en metode
      * med startværdier til den første unit, så man har et udgangspunkt.
      */
     public void makeFirstIteration() {
-        Iteration iteration = new Iteration(0);
         iteration.addFirstUnit();
         allIterations.add(iteration);
     }
@@ -29,14 +30,14 @@ public class Handler {
      * til iterationen med bestemte værdier.
      * @param value bestemt mængde arbejde i unit
      * @param round omgang
-     * @param stateNr
+     * @param state
      * @param iterationsId iteration, unit tilhører
      */
-    public void addUnit(double value, int round, int stateNr, int iterationsId) {
+    public void addUnit(double value, int round, State state, int iterationsId) {
         Unit unit = new Unit();
         unit.setValue(value);
         unit.setRound(round);
-        unit.setStateNr(stateNr);
+        unit.setState(state);
         allIterations.get(iterationsId).getUnits().add(unit);
     }
 
@@ -67,11 +68,10 @@ public class Handler {
 
             for (int j = 0; j < iteration.getUnits().size(); j++) {
                 Unit unit = iteration.getUnits().get(j);
-                if (unit.getStateNr() == State.DEPL.getStateNr()) {
+                if(unit.getState().toString().equals("DEPL")){
                     workDone += unit.getValue();
                 }
             }
-
         }
         return workDone;
     }
@@ -85,10 +85,10 @@ public class Handler {
      * iteration splittes i to, sådan at den nye iteration får to units (den ene har 0.2 og den
      * anden har 0.8 af værdien). På den måde ændrer sig antallet af units i hver iteration.
      */
-    public void makeIteration() {
-        Iteration nyIteration = new Iteration(allIterations.size());
-        allIterations.add(nyIteration);
-        int index = nyIteration.getIterationId();
+    public Iteration makeIteration() {
+        iteration = new Iteration(allIterations.size());
+        allIterations.add(iteration);
+        int index = iteration.getIterationId();
         ArrayList<Unit> previousUnits = copyPreviousUnits(index);
         double mp8 = 0.8;
         double mp2 = 0.2;
@@ -96,47 +96,58 @@ public class Handler {
         for (int i = 0; i < previousUnits.size(); i++) {
 
             Unit unit = previousUnits.get(i);
-            int stateNr = unit.getStateNr();
+            State state = unit.getState();
+            String stateString = unit.getState().toString();
             int round = unit.getRound();
             double value = unit.getValue();
+            State nyState;
 
-            switch (stateNr) {
-                case 0: case 1:
-                    addUnit(value, round, (stateNr + 1), index);
+            switch (stateString) {
+                case "STAR": case "COMM":
+                    nyState = State.givNyState(state,1);
+                    addUnit(value, round, nyState, index);
                     break;
-                case 2:
+                case "PLAN":
                     if (round == 1) {
-                        addUnit(value, round + 1, stateNr, index);
+                        addUnit(value, round + 1, state, index);
                     } else if (round == 2) {
                         double værdi = value * mp8;
-                        addUnit(værdi, round - 1, stateNr + 1, index);
+                        nyState = State.givNyState(state, 1);
+                        addUnit(værdi, round - 1, nyState, index);
                         double værdi2 = value * mp2;
-                        addUnit(værdi2, round - 1, stateNr - 1, index);
+                        nyState = State.givNyState(state,-1);
+                        addUnit(værdi2, round - 1, nyState, index);
                     }
                     break;
-                case 3:
+                case "MODE":
                     if (round == 1) {
-                        addUnit(value, round + 1, stateNr, index);
+                        addUnit(value, round + 1, state, index);
                     } else if (round == 2) {
                         double værdi = value * mp8;
                         double værdi2 = value * mp2;
-                        addUnit(værdi, round - 1, stateNr + 1, index);
-                        addUnit(værdi2, round - 1, stateNr, index);
+                        nyState = State.givNyState(state,1);
+                        addUnit(værdi, round - 1, nyState, index);
+                        addUnit(værdi2, round - 1, state, index);
                     }
                     break;
-                case 4:
+                case "CONS":
                     if (round < 4) {
-                        addUnit(value, round + 1, stateNr, index);
+                        addUnit(value, round + 1, state, index);
                     } else if (round == 4) {
                         double værdi = value * mp8;
                         double værdi2 = value * mp2;
-                        addUnit(værdi, round - 3, stateNr + 1, index);
-                        addUnit(værdi2, round - 3, stateNr - 3, index);
+                        nyState = State.givNyState(state,1);
+                        State nyNyState = null;
+                        nyNyState = State.givNyState(state,-3);
+                        addUnit(værdi, round - 3, nyState, index);
+                        addUnit(værdi2, round - 3, nyNyState, index);
                     }
                     break;
             }
         }
+        return iteration;
     }
+
 
     /**
      * metoden looper iterationerne, som henter

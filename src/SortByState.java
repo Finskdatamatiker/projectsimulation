@@ -6,7 +6,10 @@ public class SortByState implements Comparator<Unit> {
      */
         public int compare(Unit a, Unit b)
         {
-            return a.getStateNr() - b.getStateNr();
+            int stateNra = a.getState().getStateNr();
+            int stateNrb = b.getState().getStateNr();
+            return stateNra - stateNrb;
+            //return a.getStateNr() - b.getStateNr();
         }
     }
 

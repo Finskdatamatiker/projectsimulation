@@ -36,7 +36,7 @@ public class Iteration {
         Unit unit = new Unit();
         unit.setValue(1.0);
         unit.setRound(1);
-        unit.setStateNr(0);
+        unit.setState(State.STAR);
         units.add(unit);
     }
 
