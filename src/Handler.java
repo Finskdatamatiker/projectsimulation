@@ -33,12 +33,15 @@ public class Handler {
      * @param state
      * @param iterationsId iteration, unit tilhører
      */
+    int iterNr  = 0;
     public void addUnit(double value, int round, State state, int iterationsId) {
         Unit unit = new Unit();
         unit.setValue(value);
         unit.setRound(round);
         unit.setState(state);
         allIterations.get(iterationsId).getUnits().add(unit);
+        //System.out.println( "TEST hvor mange iterationer : " + allIterations.size() + " hvor mange units i alt er tilsat: " + iterNr++);
+
     }
 
     /**
@@ -97,17 +100,16 @@ public class Handler {
 
             Unit unit = previousUnits.get(i);
             State state = unit.getState();
-            String stateString = unit.getState().toString();
             int round = unit.getRound();
             double value = unit.getValue();
             State nyState;
 
-            switch (stateString) {
-                case "STAR": case "COMM":
+            switch (state) {
+                case STAR: case COMM:
                     nyState = State.givNyState(state,1);
                     addUnit(value, round, nyState, index);
                     break;
-                case "PLAN":
+                case PLAN:
                     if (round == 1) {
                         addUnit(value, round + 1, state, index);
                     } else if (round == 2) {
@@ -119,7 +121,7 @@ public class Handler {
                         addUnit(værdi2, round - 1, nyState, index);
                     }
                     break;
-                case "MODE":
+                case MODE:
                     if (round == 1) {
                         addUnit(value, round + 1, state, index);
                     } else if (round == 2) {
@@ -130,7 +132,7 @@ public class Handler {
                         addUnit(værdi2, round - 1, state, index);
                     }
                     break;
-                case "CONS":
+                case CONS:
                     if (round < 4) {
                         addUnit(value, round + 1, state, index);
                     } else if (round == 4) {
