@@ -40,8 +40,6 @@ public class Handler {
         unit.setRound(round);
         unit.setState(state);
         allIterations.get(iterationsId).getUnits().add(unit);
-        //System.out.println( "TEST hvor mange iterationer : " + allIterations.size() + " hvor mange units i alt er tilsat: " + iterNr++);
-
     }
 
     /**
@@ -88,7 +86,7 @@ public class Handler {
      * iteration splittes i to, sådan at den nye iteration får to units (den ene har 0.2 og den
      * anden har 0.8 af værdien). På den måde ændrer sig antallet af units i hver iteration.
      */
-    public Iteration makeIteration() {
+    public void makeIteration() {
         iteration = new Iteration(allIterations.size());
         allIterations.add(iteration);
         int index = iteration.getIterationId();
@@ -113,41 +111,41 @@ public class Handler {
                     if (round == 1) {
                         addUnit(value, round + 1, state, index);
                     } else if (round == 2) {
-                        double værdi = value * mp8;
+                        double vaerdi = value * mp8;
                         nyState = State.givNyState(state, 1);
-                        addUnit(værdi, round - 1, nyState, index);
-                        double værdi2 = value * mp2;
+                        addUnit(vaerdi, round - 1, nyState, index);
+                        double vaerdi2 = value * mp2;
                         nyState = State.givNyState(state,-1);
-                        addUnit(værdi2, round - 1, nyState, index);
+                        addUnit(vaerdi2, round - 1, nyState, index);
                     }
                     break;
                 case MODE:
                     if (round == 1) {
                         addUnit(value, round + 1, state, index);
                     } else if (round == 2) {
-                        double værdi = value * mp8;
-                        double værdi2 = value * mp2;
+                        double vaerdi = value * mp8;
+                        double vaerdi2 = value * mp2;
                         nyState = State.givNyState(state,1);
-                        addUnit(værdi, round - 1, nyState, index);
-                        addUnit(værdi2, round - 1, state, index);
+                        addUnit(vaerdi, round - 1, nyState, index);
+                        addUnit(vaerdi2, round - 1, state, index);
                     }
                     break;
                 case CONS:
                     if (round < 4) {
                         addUnit(value, round + 1, state, index);
                     } else if (round == 4) {
-                        double værdi = value * mp8;
-                        double værdi2 = value * mp2;
+                        double vaerdi = value * mp8;
+                        double vaerdi2 = value * mp2;
                         nyState = State.givNyState(state,1);
                         State nyNyState = null;
                         nyNyState = State.givNyState(state,-3);
-                        addUnit(værdi, round - 3, nyState, index);
-                        addUnit(værdi2, round - 3, nyNyState, index);
+                        addUnit(vaerdi, round - 3, nyState, index);
+                        addUnit(vaerdi2, round - 3, nyNyState, index);
                     }
                     break;
             }
         }
-        return iteration;
+        //return iteration;
     }
 
 
